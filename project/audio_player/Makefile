@@ -2,8 +2,8 @@ TARGET  := audio_player
 SRC_DIR := ../../src
 OBJ_DIR := objs
 BIN_DIR := bin
-CC      := aarch64-rockchip-linux-gnu-gcc
-#CC      := gcc
+#CC      := aarch64-rockchip-linux-gnu-gcc
+CC      := gcc
 CFLAGS := -Wall -g
 
 INCS += -I.
@@ -22,15 +22,15 @@ SRCS += media/ring_buffer.c
 SRCS += media/mp3_decoder.c
 SRCS += media/common_player.c
 SRCS += media/audio_player_process.c
-#SRCS += media/audio_message_queue.c
-#SRCS += media/audio_manager.c
+SRCS += media/audio_message_queue.c
+SRCS += media/audio_manager.c
 
 SRCS += network/common_buffer.c
 SRCS += network/httpclient.c
 SRCS += network/http_download_process.c
 
 SRCS += ./main.c
-
+SRCS += ./auth_do.c
 OBJS := $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRCS))
 
 $(OBJ_DIR)/com/%.o: $(SRC_DIR)/com/%.c

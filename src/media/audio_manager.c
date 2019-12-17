@@ -61,6 +61,7 @@ static bool                g_audio_local_pending;
 static bool                g_audio_new_progress;
 static bool                g_audio_auto_next;
 static bool                g_auto_resume_prev;
+TaskHandle_t               audio_mgr_init_task_handle;
 
 static void audio_prompt_player_callback(void* param, audio_player_event_t event);
 static void audio_resource_player_callback(void* param, audio_player_event_t event);
@@ -84,13 +85,13 @@ audio_mgr_return_t audio_mgr_init(void)
     audio_player_register_callback(&g_prompt_play, audio_prompt_player_callback);
     audio_player_register_callback(&g_resource_play, audio_resource_player_callback);
     
-    /*xTaskCreate(
+    xTaskCreate(
         audio_mgr_task, 
         "audio_mgr_task", 
         AUDIO_MGR_TASK_STACK_SIZE, 
         NULL,
         TASK_PRIORITY_HIGH,
-        NULL);*/
+        &audio_mgr_init_task_handle);
     
     return AUDIO_MGR_SUCCESS;
 }

@@ -1,5 +1,6 @@
 #include "audio_player_process.h"
 #include "audio_manager.h"
+#include "httpclient.h"
 
 typedef struct {
     com_player_t    com_player;
@@ -172,10 +173,56 @@ static void audio_player_test(void)
 	pcm_trans_deinit();
 }
 
+extern char *get_register_url(void);
+extern char *http_get(char *get_url);
+extern char *header;
+extern char *post_data;
+
 int main(int argc, char* argv[])
 {
+#if 0
 	//com_player_test();
-	audio_player_test();
-	
+	//audio_player_test();
+	int i = 0;
+	audio_mgr_init();
+    
+    vTaskDelay(1000);
+	audio_mgr_player_start("http://47.98.36.22/432506345.mp3", AUDIO_SRC_FLAG_HTTP_URL, 0);
+	while(1)
+    {
+        for(i=0;i<10;i++)
+            vTaskDelay(1000);
+        audio_mgr_player_pause(false);
+        for(i=0;i<10;i++)
+            vTaskDelay(1000);
+        audio_mgr_player_resume(false);
+        for(i=0;i<10;i++)
+            vTaskDelay(1000);
+        audio_mgr_player_start("pfzl.mp3", AUDIO_SRC_FLAG_LOCAL, 0);
+        for(i=0;i<10;i++)
+            vTaskDelay(1000);
+        audio_mgr_player_stop();
+    }   
     return 0;
+#endif
+#if 0
+    char *url = "http://www.baidu.com/";
+                    httpclient_t client = {0};
+                    httpclient_data_t client_data = {0};
+                    char *buf = NULL;
+                    buf = pvPortMalloc(2048);
+                    if (buf == NULL) {
+                        printf("Malloc failed.\r\n");
+                        return;
+                    }
+                    memset(buf, 0, sizeof(buf));
+                    client_data.response_buf = buf;  //Sets a buffer to store the result.
+                    client_data.response_buf_len = 2048;  //Sets the buffer size.
+                    httpclient_get(&client, url, &client_data);
+                    printf("Data received: %s\r\n", client_data.response_buf);
+#endif
+    do_register();
+    return 0;
+
+ 
 }

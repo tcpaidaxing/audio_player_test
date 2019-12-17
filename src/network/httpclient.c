@@ -48,8 +48,8 @@ static FRESULT file_res;
 #if HTTPCLIENT_DEBUG
 log_create_module(httpclient, PRINT_LEVEL_INFO);
 #define ERR(fmt,arg...)   LOG_E(httpclient, "[HTTPClient]: "fmt,##arg)
-#define WARN(fmt,arg...)   //LOG_W(httpclient, "[HTTPClient]: "fmt,##arg)
-#define DBG(fmt,arg...)   //LOG_I(httpclient,"[HTTPClient]: "fmt,##arg)
+#define WARN(fmt,arg...)   LOG_W(httpclient, "[HTTPClient]: "fmt,##arg)
+#define DBG(fmt,arg...)   LOG_I(httpclient,"[HTTPClient]: "fmt,##arg)
 #else
 #define DBG(x, ...)
 #define WARN(x, ...)
